@@ -1,9 +1,23 @@
-// Copyright (c) 2014 Teh Lemon. All rights reserved.
-//	Handles the background event listener for image context menus
-//	Adds context menu options for SauceNAO and Imgur
+// Created 29/01/2014 by Teh Lemon
+// Handles the background event listener for image context menus
+// Adds context menu options for SauceNAO and Imgur
 
-//	Add an event listener to the context menu item
+// Add an event listener to the context menu item
 chrome.contextMenus.onClicked.addListener(onClickContextHandler);
+
+// The onClicked callback function for context menu.
+function onClickContextHandler(info, tab) {
+	// If Search SauceNAO is clicked. Search SauceNAO with the image link
+	if (info.menuItemId == "SauceNAOMenuItem") 
+	{
+		.tabs.create({url: "http://saucenao.com/search.php?url=" + info.srcUrl});
+	} 
+	// If Upload to Imgur is clicked. Upload image link to Imgur.
+	else if (info.menuItemId == "ImgurMenuItem")
+	{
+		chrome.tabs.create({url: "http://imgur.com/upload?url=" + info.srcUrl});
+	}
+};
 
 // Set up context menu tree at install time.
 chrome.runtime.onInstalled.addListener(function() 
@@ -18,17 +32,5 @@ chrome.runtime.onInstalled.addListener(function()
 								"id": "ImgurMenuItem"});								
 });
 
-// The onClicked callback function for context menu.
-function onClickContextHandler(info, tab) {
-	//If Search SauceNAO is clicked. Search SauceNAO with the image link
-  if (info.menuItemId == "SauceNAOMenuItem") 
-  {
-	chrome.tabs.create({url: "http://saucenao.com/search.php?url=" + info.srcUrl});
-  } 
-	//	If Upload to Imgur is clicked. Upload image link to Imgur.
-  else if (info.menuItemId == "ImgurMenuItem")
-  {
-	chrome.tabs.create({url: "http://imgur.com/upload?url=" + info.srcUrl});
-  }
-};
+
 

@@ -1,33 +1,33 @@
 {
-  "manifest_version": 2,
+	"manifest_version": 2,
 
-  "name": "Lemon X",
-  "description": "Lemon's extension",
-  "version": "1.0",
+	"name": "Lemon X",
+	"description": "Lemon's extension",
+	"version": "1.0",
 
-  "permissions": 
-  [
-	"tabs",
-	"contextMenus" 
-  ],
-  
-  "icons":	
-  {
-	"16": "images/icons/icon16.png",
-	"48": "images/icons/icon48.png",
-	"128": "images/icons/icon128.png"
-  },
-  
-  "background":
-  {
-	"scripts": ["script.js"],
-	"persistent": false 
+	"permissions": 
+	[
+		"tabs",
+		"contextMenus" 
+	],
+
+	"icons":	
+	{
+		"16": "images/icons/icon16.png",
+		"48": "images/icons/icon48.png",
+		"128": "images/icons/icon128.png"
 	},
-  
-  "browser_action": 
-  {
-    "default_icon": "images/icons/icon19.png",
-    "default_popup": "popup.html",
-	"default_title": "Lemon X"
-  }
+
+	"background":
+	{
+		"scripts": ["script.js"],
+		"persistent": false 
+	},
+
+	"browser_action": 
+	{
+		"default_icon": "images/icons/icon19.png",
+		"default_popup": "popup.html",
+		"default_title": "Lemon X"
+	}
 }

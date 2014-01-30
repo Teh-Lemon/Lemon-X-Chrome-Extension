@@ -1,4 +1,4 @@
-//	Created 30/01/2014 by Teh Lemon
+// Created 30/01/2014 by Teh Lemon
 
 function main()
 {
@@ -7,14 +7,15 @@ function main()
 //	Event handler for MAL submit button
 // Search MAL based on search terms and drop down menu
 function clickHandlerMALSubmitButton(e) {
-  // Text box values
-  var searchTerms = document.getElementById('MALTextBox').value;
-  // Used to direct link to correct search url
-  var searchUrl = "";
+
+	// Text box values
+	var searchTerms = document.getElementById('MALTextBox').value;
+	// Used to direct link to correct search url
+	var searchUrl = "";
   
-  // Change url based on drop down menu
-  switch (document.getElementById('MALType').value)
-  {
+	// Change url based on drop down menu
+	switch (document.getElementById('MALType').value)
+	{
 	case "Anime":
 		searchUrl = "anime";
 		break;
@@ -28,13 +29,12 @@ function clickHandlerMALSubmitButton(e) {
 		searchUrl = "people";
 		break;
 	default:
-		searchUrl = "";
+		searchUrl = "anime";
 		break;
-  }
+	}
   
-  // Search MAL
-  chrome.tabs.create({url: "http://myanimelist.net/" + searchUrl + ".php?q=" + searchTerms});
-
+	// Search MAL
+	chrome.tabs.create({url: "http://myanimelist.net/" + searchUrl + ".php?q=" + searchTerms});
 }
 
 // Add event listeners once the DOM has fully loaded by listening for the
