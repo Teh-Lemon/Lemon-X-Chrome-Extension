@@ -10,7 +10,7 @@ function onClickContextHandler(info, tab) {
 	// If Search SauceNAO is clicked. Search SauceNAO with the image link
 	if (info.menuItemId == "SauceNAOMenuItem") 
 	{
-		.tabs.create({url: "http://saucenao.com/search.php?url=" + info.srcUrl});
+		chrome.tabs.create({url: "http://saucenao.com/search.php?url=" + info.srcUrl});
 	} 
 	// If Upload to Imgur is clicked. Upload image link to Imgur.
 	else if (info.menuItemId == "ImgurMenuItem")
