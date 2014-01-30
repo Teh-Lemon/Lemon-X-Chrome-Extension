@@ -23,13 +23,13 @@ function onClickContextHandler(info, tab) {
 chrome.runtime.onInstalled.addListener(function() 
 {
 	//	Create Search SauceNAO menu item
-    chrome.contextMenus.create({"title": "Search SauceNAO",
-								"contexts": ["image"],
-                                "id": "SauceNAOMenuItem"});
-	
+	chrome.contextMenus.create({"title": "Search SauceNAO",
+		"contexts": ["image"],
+		"id": "SauceNAOMenuItem"});
+
 	chrome.contextMenus.create({"title": "Upload to Imgur",
-								"contexts": ["image"],
-								"id": "ImgurMenuItem"});								
+		"contexts": ["image"],
+		"id": "ImgurMenuItem"});								
 });
 
 

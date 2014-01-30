@@ -4,7 +4,7 @@ function main()
 {
 }
 
-//	Event handler for MAL submit button
+// Event handler for MAL submit button
 // Search MAL based on search terms and drop down menu
 function clickHandlerMALSubmitButton(e) {
 
@@ -41,6 +41,6 @@ function clickHandlerMALSubmitButton(e) {
 // `DOMContentLoaded` event on the document, and adding your listeners to
 // specific elements when it triggers.
 document.addEventListener('DOMContentLoaded', function () {
-  document.getElementById('MALSubmitButton').addEventListener('click', clickHandlerMALSubmitButton);
-  main();
+	document.getElementById('MALSubmitButton').addEventListener('click', clickHandlerMALSubmitButton);
+	main();
 });
