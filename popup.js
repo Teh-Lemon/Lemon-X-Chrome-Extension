@@ -16,6 +16,8 @@ function clickHandlerMALSubmitButton(e) {
 	// Change url based on drop down menu
 	switch (document.getElementById('MALType').value)
 	{
+	case "":
+		break;
 	case "Anime":
 		searchUrl = "anime";
 		break;
@@ -32,9 +34,16 @@ function clickHandlerMALSubmitButton(e) {
 		searchUrl = "anime";
 		break;
 	}
-  
+	
 	// Search MAL
-	chrome.tabs.create({url: "http://myanimelist.net/" + searchUrl + ".php?q=" + searchTerms});
+	if (searchTerms == "")
+	{
+		chrome.tabs.create({url: "http://myanimelist.net/"});
+	}
+	else
+	{
+		chrome.tabs.create({url: "http://myanimelist.net/" + searchUrl + ".php?q=" + searchTerms});
+	}
 }
 
 // Add event listeners once the DOM has fully loaded by listening for the
