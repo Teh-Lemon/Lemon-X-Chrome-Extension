@@ -18,6 +18,7 @@ function onClickContextHandler(info, tab) {
 		chrome.tabs.create({url: "http://imgur.com/upload?url=" + info.srcUrl});
 	}
 	// If Translate is clicked. Enter selected text into Google Translate
+	else if (info.menuItemId == "TranslateMenuItem")
 	{
 		chrome.tabs.create({url: "http://translate.google.com/#ja/en/" + info.selectionText});
 	}
