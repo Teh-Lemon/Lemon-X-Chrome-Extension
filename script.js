@@ -17,6 +17,10 @@ function onClickContextHandler(info, tab) {
 	{
 		chrome.tabs.create({url: "http://imgur.com/upload?url=" + info.srcUrl});
 	}
+	// If Translate is clicked. Enter selected text into Google Translate
+	{
+		chrome.tabs.create({url: "http://translate.google.com/#ja/en/" + info.selectionText});
+	}
 };
 
 // Set up context menu tree at install time.
@@ -29,7 +33,11 @@ chrome.runtime.onInstalled.addListener(function()
 
 	chrome.contextMenus.create({"title": "Upload to Imgur",
 		"contexts": ["image"],
-		"id": "ImgurMenuItem"});								
+		"id": "ImgurMenuItem"});		
+
+	chrome.contextMenus.create({"title": "Translate JP -> ENG",
+		"contexts": ["selection"],
+		"id": "TranslateMenuItem"});
 });
 
 
