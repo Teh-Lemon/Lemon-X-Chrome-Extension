@@ -10,5 +10,4 @@ Adds context menu for images
 
 Adds toolbar button
 - Search MyAnimeList
-- 
 
