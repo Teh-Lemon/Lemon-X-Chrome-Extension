@@ -6,7 +6,8 @@
 chrome.contextMenus.onClicked.addListener(onClickContextHandler);
 
 // The onClicked callback function for context menu.
-function onClickContextHandler(info, tab) {
+function onClickContextHandler(info) 
+{
 	// If Search SauceNAO is clicked. Search SauceNAO with the image link
 	if (info.menuItemId == "SauceNAOMenuItem") 
 	{
@@ -36,7 +37,7 @@ chrome.runtime.onInstalled.addListener(function()
 		"contexts": ["image"],
 		"id": "ImgurMenuItem"});		
 
-	chrome.contextMenus.create({"title": "Translate JP -> ENG",
+	chrome.contextMenus.create({"title": "Translate '%s' from JP -> ENG",
 		"contexts": ["selection"],
 		"id": "TranslateMenuItem"});
 });
