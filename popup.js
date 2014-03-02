@@ -16,23 +16,23 @@ function clickHandlerMALSubmitButton(e)
 	// Change url based on drop down menu
 	switch (document.getElementById('MALType').value)
 	{
-	case "":
-		break;
-	case "Anime":
-		searchUrl = "anime";
-		break;
-	case "Manga":
-		searchUrl = "manga";
-		break;
-	case "Characters":
-		searchUrl = "character";
-		break;
-	case "People":
-		searchUrl = "people";
-		break;
-	default:
-		searchUrl = "anime";
-		break;
+		case "":
+			break;
+		case "Anime":
+			searchUrl = "anime";
+			break;
+		case "Manga":
+			searchUrl = "manga";
+			break;
+		case "Characters":
+			searchUrl = "character";
+			break;
+		case "People":
+			searchUrl = "people";
+			break;
+		default:
+			searchUrl = "anime";
+			break;
 	}
 	
 	// Search MAL

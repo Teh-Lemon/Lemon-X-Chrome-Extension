@@ -7,21 +7,21 @@ chrome.contextMenus.onClicked.addListener(onClickContextHandler);
 
 // The onClicked callback function for context menu.
 function onClickContextHandler(info) 
-{
-	// If Search SauceNAO is clicked. Search SauceNAO with the image link
-	if (info.menuItemId == "SauceNAOMenuItem") 
+{	
+	switch (info.menuItemId)
 	{
-		chrome.tabs.create({url: "http://saucenao.com/search.php?url=" + info.srcUrl});
-	} 
-	// If Upload to Imgur is clicked. Upload image link to Imgur.
-	else if (info.menuItemId == "ImgurMenuItem")
-	{
-		chrome.tabs.create({url: "http://imgur.com/upload?url=" + info.srcUrl});
-	}
-	// If Translate is clicked. Enter selected text into Google Translate
-	else if (info.menuItemId == "TranslateMenuItem")
-	{
-		chrome.tabs.create({url: "http://translate.google.com/#ja/en/" + info.selectionText});
+		// If Search SauceNAO is clicked. Search SauceNAO with the image link
+		case "SauceNAOMenuItem":
+			chrome.tabs.create({url: "http://saucenao.com/search.php?url=" + info.srcUrl});
+			break;
+		// If Upload to Imgur is clicked. Upload image link to Imgur.
+		case "ImgurMenuItem":
+			chrome.tabs.create({url: "http://imgur.com/upload?url=" + info.srcUrl});
+			break;
+		// If Translate is clicked. Enter selected text into Google Translate
+		case "TranslateMenuItem":
+			chrome.tabs.create({url: "http://translate.google.com/#ja/en/" + info.selectionText});
+			break;
 	}
 };
 
