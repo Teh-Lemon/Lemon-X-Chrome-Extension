@@ -18,7 +18,10 @@ To install
 ------------
 1. Download the file found in the Release folder.
 2. Open up the extensions page in Google Chrome (Menu -> Tools -> Extensions).
-3. Drag and Drop the downloaded .crx file onto the page.
+3. Turn on Developer Mode in the top right corner
+4. Extract the contents of the .crx file somewhere
+5. Click "Load unpacked extension" in the Chrome Extensions page at the top
+6. Point it to the files you just extracted
 
 Permissions
 -----------------
