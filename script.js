@@ -21,6 +21,7 @@ function onClickContextHandler(info)
 		// If Translate is clicked. Enter selected text into Google Translate
 		case "TranslateMenuItem":
 			chrome.tabs.create({url: "http://translate.google.com/#ja/en/" + info.selectionText});
+			chrome.tabs.create({url: "http://beta.jisho.org/search/" + info.selectionText});
 			break;
 	}
 };
