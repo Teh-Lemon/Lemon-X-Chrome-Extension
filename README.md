@@ -13,6 +13,8 @@ Adds context menu for highlighted text
 
 Adds toolbar button
 - Search MyAnimeList
+ 
+![alt text](https://dl.dropboxusercontent.com/u/15765996/Images/Lemon%20X%20Chrome%20Extension/2014-03-09_23-22-55.png "")
 
 To install
 ------------
