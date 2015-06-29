@@ -2,11 +2,6 @@
 // Handles the background event listener for image context menus
 // Adds context menu options for SauceNAO and Imgur
 
-console.log('script run');
-
-
-console.log('create context menus');
-
 // Set up context menus
 // Create Search SauceNAO menu item
 chrome.contextMenus.create({"title": "Search SauceNAO",
@@ -20,9 +15,6 @@ chrome.contextMenus.create({"title": "Upload to Imgur",
 chrome.contextMenus.create({"title": "Translate '%s' from JP -> ENG",
 	"contexts": ["selection"],
 	"id": "TranslateMenuItem"});
-	
-console.log('end context menus');
-
 
 // Add an event listener to the context menu item
 chrome.contextMenus.onClicked.addListener(onClickContextHandler);

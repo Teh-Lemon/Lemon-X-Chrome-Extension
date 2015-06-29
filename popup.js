@@ -8,8 +8,6 @@ function main()
 // Search MAL based on search terms and drop down menu
 function clickHandlerMALSubmitButton(e) 
 {
-	chrome.extension.getBackgroundPage().console.log('submit button');
-	
 	// Text box values
 	var searchTerms = document.getElementById('MALTextBox').value;
 	// Used to direct link to correct search url
