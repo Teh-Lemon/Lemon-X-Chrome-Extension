@@ -18,12 +18,17 @@ Adds toolbar button
 
 To install
 ------------
-1. Download the file found in the Release folder.
+1. Download the file found on the Release page.
 2. Open up the extensions page in Google Chrome (Menu -> Tools -> Extensions).
 3. Turn on Developer Mode in the top right corner
-4. Extract the contents of the .crx file somewhere
+4. Extract the contents of the .zip file somewhere permanent
 5. Click "Load unpacked extension" in the Chrome Extensions page at the top
 6. Point it to the files you just extracted
+
+To update
+------------
+1. Overwrite the files of the extension with the new files
+2. If the directory is not changed, Chrome will automatically detect and install the update
 
 Permissions
 -----------------
