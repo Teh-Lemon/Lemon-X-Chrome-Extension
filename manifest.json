@@ -21,7 +21,7 @@
 	"background":
 	{
 		"scripts": ["script.js"],
-		"persistent": false 
+		"persistent": true 
 	},
 
 	"browser_action": 

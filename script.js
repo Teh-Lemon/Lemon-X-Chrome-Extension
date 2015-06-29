@@ -2,6 +2,28 @@
 // Handles the background event listener for image context menus
 // Adds context menu options for SauceNAO and Imgur
 
+console.log('script run');
+
+
+console.log('create context menus');
+
+// Set up context menus
+// Create Search SauceNAO menu item
+chrome.contextMenus.create({"title": "Search SauceNAO",
+	"contexts": ["image"],
+	"id": "SauceNAOMenuItem"});
+
+chrome.contextMenus.create({"title": "Upload to Imgur",
+	"contexts": ["image"],
+	"id": "ImgurMenuItem"});		
+
+chrome.contextMenus.create({"title": "Translate '%s' from JP -> ENG",
+	"contexts": ["selection"],
+	"id": "TranslateMenuItem"});
+	
+console.log('end context menus');
+
+
 // Add an event listener to the context menu item
 chrome.contextMenus.onClicked.addListener(onClickContextHandler);
 
@@ -25,23 +47,6 @@ function onClickContextHandler(info)
 			break;
 	}
 };
-
-// Set up context menu tree at install time.
-chrome.runtime.onInstalled.addListener(function() 
-{
-	//	Create Search SauceNAO menu item
-	chrome.contextMenus.create({"title": "Search SauceNAO",
-		"contexts": ["image"],
-		"id": "SauceNAOMenuItem"});
-
-	chrome.contextMenus.create({"title": "Upload to Imgur",
-		"contexts": ["image"],
-		"id": "ImgurMenuItem"});		
-
-	chrome.contextMenus.create({"title": "Translate '%s' from JP -> ENG",
-		"contexts": ["selection"],
-		"id": "TranslateMenuItem"});
-});
 
 
 
