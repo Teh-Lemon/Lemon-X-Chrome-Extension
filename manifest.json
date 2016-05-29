@@ -3,11 +3,15 @@
 
 	"name": "Lemon X",
 	"description": "Lemon's extension",
-	"version": "1.1.5",
+	"version": "1.2.0",
 
 	"permissions": 
 	[
+		"activeTab",
 		"tabs",
+		"webRequest",
+		"webRequestBlocking",
+		"*://pbs.twimg.com/media/",
 		"contextMenus" 
 	],
 

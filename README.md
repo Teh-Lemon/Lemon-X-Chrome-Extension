@@ -16,6 +16,8 @@ Adds toolbar button
  
 ![alt text](https://dl.dropboxusercontent.com/u/15765996/Images/Lemon%20X%20Chrome%20Extension/2014-03-09_23-22-55.png "")
 
+Redirects Twitter image URLs to the original size and quality version
+
 To install
 ------------
 1. Download the file found on the Release page.

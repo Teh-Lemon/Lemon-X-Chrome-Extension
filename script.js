@@ -1,6 +1,8 @@
 // Created 29/01/2014 by Teh Lemon
+// Background script
 // Handles the background event listener for image context menus
 // Adds context menu options for SauceNAO and Imgur
+//console.log("Lemon X BG loaded");
 
 // Set up context menus
 // Create Search SauceNAO menu item
@@ -35,10 +37,46 @@ function onClickContextHandler(info)
 		// If Translate is clicked. Enter selected text into Google Translate
 		case "TranslateMenuItem":
 			chrome.tabs.create({url: "http://translate.google.com/#ja/en/" + info.selectionText});
-			chrome.tabs.create({url: "http://beta.jisho.org/search/" + info.selectionText});
+			//chrome.tabs.create({url: "http://beta.jisho.org/search/" + info.selectionText});
 			break;
 	}
 };
+
+///
+// Redirect Twitter image URLs to original quality
+///
+
+// Twitter image URL
+const origFilter = 
+{
+  urls : ['*://pbs.twimg.com/media/*']
+};
+
+chrome.webRequest.onBeforeRequest.addListener(origHandler, origFilter, ['blocking']);
+
+function origHandler(details) 
+{
+  let {url} = details;
+  const i = url.lastIndexOf(':');
+  if (i > 5) 
+  {
+    if (/:orig$/.test(url) || /:thumb$/.test(url) && details.type === 'image') 
+	{
+      return;
+    }
+
+    url = url.slice(0, i);
+  }
+
+  return   {
+    redirectUrl: url + ':orig'
+  };
+}
+
+
+
+
+
 
 
 
