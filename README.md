@@ -21,7 +21,7 @@ Redirects Twitter image URLs to the original size and quality version
 To install
 ------------
 Visit this page and click "ADD TO CHROME" in the top right corner:  
-<https://chrome.google.com/webstore/detail/lemon-x/chdldhicokpngnfcmbgmgleipomcojfi?hl=en-GB&gl=GB>
+<https://chrome.google.com/webstore/detail/lemon-x/chdldhicokpngnfcmbgmgleipomcojfi>
 
 To install (manual)
 ------------
