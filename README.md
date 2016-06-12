@@ -25,7 +25,7 @@ Visit this page and click "ADD TO CHROME" in the top right corner:
 
 To install (manual)
 ------------
-1. Download the file found on the Release page.
+1. Download the file found on the [Release](https://github.com/Teh-Lemon/Lemon-X-Chrome-Extension/releases) page.
 2. Extract the contents of the .zip file somewhere permanent
 3. Open up the extensions page in Google Chrome (Menu -> Tools -> Extensions).
 4. Turn on Developer Mode in the top right corner
