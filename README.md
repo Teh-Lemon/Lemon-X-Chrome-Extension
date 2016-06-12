@@ -21,9 +21,9 @@ Redirects Twitter image URLs to the original size and quality version
 To install
 ------------
 1. Download the file found on the Release page.
-2. Open up the extensions page in Google Chrome (Menu -> Tools -> Extensions).
-3. Turn on Developer Mode in the top right corner
-4. Extract the contents of the .zip file somewhere permanent
+2. Extract the contents of the .zip file somewhere permanent
+3. Open up the extensions page in Google Chrome (Menu -> Tools -> Extensions).
+4. Turn on Developer Mode in the top right corner
 5. Click "Load unpacked extension" in the Chrome Extensions page at the top
 6. Point it to the files you just extracted
 
