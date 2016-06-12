@@ -57,7 +57,9 @@ chrome.webRequest.onBeforeRequest.addListener(origHandler, origFilter, ['blockin
 function origHandler(details) 
 {
   let {url} = details;
-  const i = url.lastIndexOf(':');
+  
+  // cull :large
+  const i = url.lastIndexOf(':');  
   if (i > 5) 
   {
     if (/:orig$/.test(url) || /:thumb$/.test(url) && details.type === 'image') 
@@ -66,10 +68,15 @@ function origHandler(details)
     }
 
     url = url.slice(0, i);
+	console.log(url);
   }
-
-  return   {
-    redirectUrl: url + ':orig'
+  
+  // cull http  
+  const j = url.indexOf(':');
+  url = url.slice(j)
+  
+  return   {	
+    redirectUrl: 'https' + url + ':orig'
   };
 }
 
