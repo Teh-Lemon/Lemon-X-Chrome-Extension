@@ -5,20 +5,25 @@ Chrome extension built for educational purposes and personal use.
 Features
 ------------
 Adds context menu for images
-- Reverse image search on SauceNAO for image
-- Upload image to Imgur image hosting service
+- Reverse image search with SauceNAO
+- Upload image to Imgur's image hosting service
 
 Adds context menu for highlighted text
-- Translate selected text from Japanese to English
+- Translate selected text from Japanese to English with Google Translate
 
 Adds toolbar button
-- Search MyAnimeList
+- Quickly search MyAnimeList
  
 ![alt text](https://dl.dropboxusercontent.com/u/15765996/Images/Lemon%20X%20Chrome%20Extension/2014-03-09_23-22-55.png "")
 
 Redirects Twitter image URLs to the original size and quality version
 
 To install
+------------
+Visit this page and click "ADD TO CHROME" in the top right corner:  
+<https://chrome.google.com/webstore/detail/lemon-x/chdldhicokpngnfcmbgmgleipomcojfi?hl=en-GB&gl=GB>
+
+To install (manual)
 ------------
 1. Download the file found on the Release page.
 2. Extract the contents of the .zip file somewhere permanent
