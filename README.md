@@ -33,9 +33,9 @@ To install (manual)
 5. Click "Load unpacked extension" in the Chrome Extensions page at the top
 6. Point it to the files you just extracted
 
-To update
-------------
-1. Overwrite the files of the extension with the new files
+To update:   
+
+1. Overwrite the files of the extension with the new files  
 2. If the directory is not changed, Chrome will automatically detect and install the update
 
 Permissions
