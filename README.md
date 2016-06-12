@@ -1,6 +1,7 @@
 Lemon-X-Chrome-Extension
 ========================
-Chrome extension built for educational purposes and personal use.
+Chrome extension built for educational purposes and personal use.  
+Get it here: <https://chrome.google.com/webstore/detail/lemon-x/chdldhicokpngnfcmbgmgleipomcojfi>
 
 Features
 ------------
