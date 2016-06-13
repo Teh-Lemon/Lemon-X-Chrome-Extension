@@ -2,9 +2,13 @@
 // Background script
 // Handles the background event listener for image context menus
 // Adds context menu options for SauceNAO and Imgur
-//console.log("Lemon X BG loaded");
+// Redirect Twitter image URLs to original quality
+// Rename Twitter image filenames when downloading
 
+///
 // Set up context menus
+///
+
 // Create Search SauceNAO menu item
 chrome.contextMenus.create({"title": "Search SauceNAO",
 	"contexts": ["image"],
@@ -54,15 +58,15 @@ const origFilter =
 
 chrome.webRequest.onBeforeRequest.addListener(origHandler, origFilter, ['blocking']);
 
-function origHandler(details) 
+function origHandler(info) 
 {
-  let {url} = details;
+  let {url} = info;
   
   // cull :large
   const i = url.lastIndexOf(':');  
   if (i > 5) 
   {
-    if (/:orig$/.test(url) || /:thumb$/.test(url) && details.type === 'image') 
+    if (/:orig$/.test(url) || /:thumb$/.test(url) && info.type === 'image') 
 	{
       return;
     }
@@ -80,10 +84,19 @@ function origHandler(details)
   };
 }
 
+///
+// Rename Twitter image filenames when downloading
+///
 
+chrome.downloads.onDeterminingFilename.addListener(twitFileNameHandler);
 
-
-
-
-
-
+function twitFileNameHandler(item, suggest) 
+{	
+	const i = item.filename.lastIndexOf('-');  
+	
+	if (item.referrer.includes("twitter.com") || item.referrer.includes("pbs.twimg.com"))
+	{
+		const newName = item.filename.slice(0, i);		
+		suggest({filename: newName});
+	}		
+}

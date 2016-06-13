@@ -19,6 +19,8 @@ Adds toolbar button
 
 Redirects Twitter image URLs to the original size and quality version
 
+Download Twitter images as image files instead of Twitter's jpg-large files
+
 To install
 ------------
 Visit this page and click "ADD TO CHROME" in the top right corner:  
@@ -40,5 +42,7 @@ To update:
 
 Permissions
 -----------------
-Access your tabs and browsing activity
-- Required to open pages in new tabs
+Read and change your data on pbs.twimg.com
+- Used to redirect Twitter images to the original size
+Manage your downloads
+- Used to change downloaded Twitter images' file type
