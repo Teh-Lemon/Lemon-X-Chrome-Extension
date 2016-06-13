@@ -21,6 +21,10 @@ Redirects Twitter image URLs to the original size and quality version
 
 Download Twitter images as image files instead of Twitter's jpg-large files
 
+![alt text](https://dl.dropboxusercontent.com/u/15765996/Images/Lemon%20X%20Chrome%20Extension/LemonXtwitredirect.jpg "")
+![alt text](https://dl.dropboxusercontent.com/u/15765996/Images/Lemon%20X%20Chrome%20Extension/LemonXtwitdl.jpg "")
+
+
 To install
 ------------
 Visit this page and click "ADD TO CHROME" in the top right corner:  
