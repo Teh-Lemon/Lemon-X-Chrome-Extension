@@ -15,15 +15,9 @@ Adds context menu for highlighted text
 Adds toolbar button
 - Quickly search MyAnimeList
  
-![alt text](https://dl.dropboxusercontent.com/u/15765996/Images/Lemon%20X%20Chrome%20Extension/2014-03-09_23-22-55.png "")
-
 Redirects Twitter image URLs to the original size and quality version
 
 Download Twitter images as image files instead of Twitter's jpg-large files
-
-![alt text](https://dl.dropboxusercontent.com/u/15765996/Images/Lemon%20X%20Chrome%20Extension/LemonXtwitredirect.jpg "")
-![alt text](https://dl.dropboxusercontent.com/u/15765996/Images/Lemon%20X%20Chrome%20Extension/LemonXtwitdl.jpg "")
-
 
 To install
 ------------
@@ -51,3 +45,9 @@ Read and change your data on pbs.twimg.com
 
 Manage your downloads
 - Used to change downloaded Twitter images' file type
+
+Screenshots
+-----------------
+![alt text](https://dl.dropboxusercontent.com/u/15765996/Images/Lemon%20X%20Chrome%20Extension/2014-03-09_23-22-55.png "")
+![alt text](https://dl.dropboxusercontent.com/u/15765996/Images/Lemon%20X%20Chrome%20Extension/LemonXtwitredirect.jpg "")
+![alt text](https://dl.dropboxusercontent.com/u/15765996/Images/Lemon%20X%20Chrome%20Extension/LemonXtwitdl.jpg "")
