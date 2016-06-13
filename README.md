@@ -43,6 +43,7 @@ To update:
 Permissions
 -----------------
 Read and change your data on pbs.twimg.com
-- Used to redirect Twitter images to the original size
+- Used to redirect Twitter images to the original size  
+
 Manage your downloads
 - Used to change downloaded Twitter images' file type
