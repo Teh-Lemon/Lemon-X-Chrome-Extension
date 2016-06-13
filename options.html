@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Lemon X Options</title>
+  <style>
+    body: { padding: 10px; }
+  </style>  
+  <script src="options.js"></script>
+</head>
+
+<body>
+	<h1>Text Translation</h1>
+	Translate from:
+	<select id="transFromList">
+	<option value="en">English</option>
+	<option value="ja">Japanese</option>
+	</select>
+	
+	<br>
+	
+	Translate to:
+	<select id="transToList">
+	<option value="en">English</option>
+	<option value="ja">Japanese</option>
+	</select>
+	
+	<h1>Context Menus</h1>
+
+	<label>  
+	Search SauceNAO
+	<input type="checkbox" id="sauceNaoCheck">
+	</label>
+
+	<br />
+
+	<label>  
+	Upload to Imgur
+	<input type="checkbox" id="upImgurCheck">
+	</label>
+	
+	<br />
+
+	<label>  
+	Translate text
+	<input type="checkbox" id="transTextCheck">
+	</label>
+
+	<h1>Twitter</h1>
+	
+	<label>  
+	Redirect Twitter image URLs 
+	<input type="checkbox" id="twitURLCheck">
+	</label>
+
+	<br />
+
+	<label>  
+	Save Twitter images as normal image files 
+	<input type="checkbox" id="twitDlCheck">
+	</label>
+
+	<br>
+	<button id="saveButt">Save</button>
+	<button id="defaultButt">Default</button>
+	<span id="status"></span>
+  
+
+</body>
+</html>

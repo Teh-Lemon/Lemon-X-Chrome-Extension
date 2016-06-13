@@ -4,7 +4,7 @@
 	"name": "Lemon X",
 	"short_name": "Lemon X",
 	"description": "Lemon's extension",
-	"version": "1.3.0",
+	"version": "1.4.0",
 
 	"permissions": 
 	[
@@ -13,7 +13,8 @@
 		"webRequestBlocking",
 		"*://pbs.twimg.com/media/",
 		"contextMenus",
-		"downloads"
+		"downloads",
+		"storage"
 	],
 
 	"icons":	
@@ -28,6 +29,12 @@
 		"scripts": ["script.js"],
 		"persistent": true 
 	},
+	
+	"options_ui": 
+	{
+		"page": "options.html",
+		"chrome_style": true
+    },
 
 	"browser_action": 
 	{

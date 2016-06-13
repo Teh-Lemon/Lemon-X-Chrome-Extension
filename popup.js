@@ -1,9 +1,5 @@
 // Created 30/01/2014 by Teh Lemon
 
-function main()
-{
-}
-
 // Event handler for MAL submit button
 // Search MAL based on search terms and drop down menu
 function clickHandlerMALSubmitButton(e) 
@@ -59,5 +55,4 @@ function changeHandlerMALTypeMenu(e)
 document.addEventListener('DOMContentLoaded', function () {
 	document.getElementById('MALSubmitButton').addEventListener('click', clickHandlerMALSubmitButton);
 	document.getElementById('MALType').addEventListener('change', changeHandlerMALTypeMenu);
-	main();
 });
