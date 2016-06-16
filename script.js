@@ -118,7 +118,7 @@ function twitFileNameHandler(item, suggest)
 {	
 	if (tfnEnabled)
 	{
-		const i = item.filename.lastIndexOf('-');  
+		const i = item.filename.lastIndexOf('-');
 
 		if (item.referrer.includes("twitter.com") || item.referrer.includes("pbs.twimg.com"))
 		{
