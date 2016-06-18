@@ -13,6 +13,8 @@ let tfnEnabled = true;
 let transFromCode = 'ja';
 let transToCode = 'en';
 
+loadSettings();
+
 ///
 // Set up context menus
 ///
@@ -111,7 +113,7 @@ function origHandler(info)
 ///
 // Rename Twitter image filenames when downloading
 ///
-
+/*
 chrome.downloads.onDeterminingFilename.addListener(twitFileNameHandler);
 
 function twitFileNameHandler(item, suggest) 
@@ -126,6 +128,28 @@ function twitFileNameHandler(item, suggest)
 			suggest({filename: newName});
 		}	
 	}
+}*/
+chrome.webRequest.onHeadersReceived.addListener(twitFileNameHandler, {urls : ['*://pbs.twimg.com/media/*']}, ['blocking']);
+
+function twitFileNameHandler(details) 
+{
+	const {url} = details;
+	let hasMediaTag = false;
+
+	if (url.includes(":thumb") || url.includes(":large") || url.includes(":orig") || url.includes(":small") || url.includes(":medium"))
+	{
+		hasMediaTag = true;
+	}
+	
+	if (tfnEnabled && hasMediaTag)
+	{
+	  return {
+		responseHeaders: [{
+		  name: 'Content-Disposition',
+		  value: `inline; filename="${url.slice(url.lastIndexOf('/') + 1, url.lastIndexOf(':'))}"`
+		}]
+	  };
+	}
 }
 
 ///
@@ -135,6 +159,7 @@ function twitFileNameHandler(item, suggest)
 chrome.storage.onChanged.addListener(storChangedHandler);
 function storChangedHandler(changes, areaName)
 {
+	/*
 	if (typeof changes['transFromLang'] !== 'undefined')
 	{
 		transFromCode = changes['transFromLang'].newValue;
@@ -162,7 +187,30 @@ function storChangedHandler(changes, areaName)
 	if (typeof changes['twitDl'] !== 'undefined')
 	{
 		tfnEnabled	= changes['twitDl'].newValue;
-	}
-	
+	}*/
+	loadSettings();
 	chrome.contextMenus.removeAll(createContextMenus);
+}
+
+function loadSettings()
+{
+	chrome.storage.local.get({
+		transFromLang: "ja",
+		transToLang: "en",
+		sauceNao: true,
+		upImgur: true,
+		transText: true,
+		twitReDir: true,
+		twitDl: true
+	}, function(items) {
+		transFromCode = items.transFromLang;
+		transToCode = items.transToLang;
+		sauceMenuEnabled = items.sauceNao;
+		imgurMenuEnabled = items.upImgur;
+		transTextMenuEnabled = items.transText;
+		origEnabled = items.twitReDir;
+		tfnEnabled = items.twitDl;
+	});
+	
+	console.log("settings loaded");
 }
