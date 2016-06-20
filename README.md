@@ -43,9 +43,6 @@ Permissions
 Read and change your data on pbs.twimg.com
 - Used to redirect Twitter images to the original size  
 
-Manage your downloads
-- Used to change downloaded Twitter images' file type
-
 Screenshots
 -----------------
 ![alt text](https://dl.dropboxusercontent.com/u/15765996/Images/Lemon%20X%20Chrome%20Extension/2014-03-09_23-22-55.png "")

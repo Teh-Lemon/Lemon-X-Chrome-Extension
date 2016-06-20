@@ -4,7 +4,7 @@
 	"name": "Lemon X",
 	"short_name": "Lemon X",
 	"description": "Lemon's extension",
-	"version": "1.4.2",
+	"version": "1.4.3",
 
 	"permissions": 
 	[
@@ -13,7 +13,6 @@
 		"webRequestBlocking",
 		"*://pbs.twimg.com/media/",
 		"contextMenus",
-		"downloads",
 		"storage"
 	],
 
