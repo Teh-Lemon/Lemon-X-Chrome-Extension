@@ -61,7 +61,8 @@ function onClickContextHandler(info)
 			break;
 		// If Translate is clicked. Enter selected text into Google Translate
 		case "TranslateMenuItem":
-			chrome.tabs.create({url: "http://translate.google.com/#" + transFromCode + "/" + transToCode + "/" + info.selectionText});
+			let newText = info.selectionText.replace("%", "%25");		
+			chrome.tabs.create({url: "http://translate.google.com/#" + transFromCode + "/" + transToCode + "/" + newText});
 			break;
 	}
 };
