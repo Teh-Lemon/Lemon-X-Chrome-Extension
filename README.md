@@ -7,7 +7,6 @@ Features
 ------------
 Adds context menu for images
 - Reverse image search with SauceNAO
-- Upload image to Imgur's image hosting service
 
 Adds context menu for highlighted text
 - Translate selected text from Japanese to English with Google Translate
@@ -45,6 +44,7 @@ Read and change your data on pbs.twimg.com
 
 Screenshots
 -----------------
-![alt text](https://dl.dropboxusercontent.com/u/15765996/Images/Lemon%20X%20Chrome%20Extension/2014-03-09_23-22-55.png "")
-![alt text](https://dl.dropboxusercontent.com/u/15765996/Images/Lemon%20X%20Chrome%20Extension/LemonXtwitredirect.jpg "")
-![alt text](https://dl.dropboxusercontent.com/u/15765996/Images/Lemon%20X%20Chrome%20Extension/LemonXtwitdl.jpg "")
+![alt text](Doc/imagemenu2.png "")  
+![alt text](Doc/translatemenu.png "")  
+![alt text](Doc/twitdl.jpg "")  
+![alt text](Doc/twitredirect.jpg "")  

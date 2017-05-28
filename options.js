@@ -6,7 +6,6 @@ function SaveOptions()
 	let transFromListValue = document.getElementById('transFromList').value;
 	let transToListValue = document.getElementById('transToList').value;
 	let sauceNaoCheckValue = document.getElementById('sauceNaoCheck').checked;
-	let upImgurCheckValue = document.getElementById('upImgurCheck').checked;
 	let transTextCheckValue = document.getElementById('transTextCheck').checked;
 	let twitReDirCheckValue = document.getElementById('twitURLCheck').checked;
 	let twitDlCheckValue = document.getElementById('twitDlCheck').checked;
@@ -15,7 +14,6 @@ function SaveOptions()
 		transFromLang : transFromListValue,
 		transToLang : transToListValue,
 		sauceNao: sauceNaoCheckValue,
-		upImgur: upImgurCheckValue,
 		transText: transTextCheckValue,
 		twitReDir: twitReDirCheckValue,
 		twitDl: twitDlCheckValue
@@ -48,7 +46,6 @@ function RestoreOptions()
 		document.getElementById('transFromList').value = items.transFromLang;
 		document.getElementById('transToList').value = items.transToLang;
 		document.getElementById('sauceNaoCheck').checked = items.sauceNao;
-		document.getElementById('upImgurCheck').checked = items.upImgur;
 		document.getElementById('transTextCheck').checked = items.transText;
 		document.getElementById('twitURLCheck').checked = items.twitReDir;
 		document.getElementById('twitDlCheck').checked = items.twitDl;
@@ -60,10 +57,9 @@ function SetDefault()
 	document.getElementById('transFromList').value = "ja";
 	document.getElementById('transToList').value = "en";
 	document.getElementById('sauceNaoCheck').checked = true;
-	document.getElementById('upImgurCheck').checked = true;
 	document.getElementById('transTextCheck').checked = true;
 	document.getElementById('twitURLCheck').checked = true;
-	document.getElementById('twitDlCheck').checked = true;	
+	document.getElementById('twitDlCheck').checked = true;
 }
 
 document.addEventListener('DOMContentLoaded', RestoreOptions);

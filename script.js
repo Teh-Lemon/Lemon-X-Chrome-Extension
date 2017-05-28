@@ -6,7 +6,6 @@
 // Rename Twitter image filenames when downloading
 
 let sauceMenuEnabled = true;
-let imgurMenuEnabled = true;
 let transTextMenuEnabled = true;
 let origEnabled = true;
 let tfnEnabled = true;
@@ -27,19 +26,20 @@ function createContextMenus()
 		"id": "SauceNAOMenuItem"});
 	}
 
-	if (imgurMenuEnabled)
-	{
-		chrome.contextMenus.create({"title": "Upload to Imgur",
-			"contexts": ["image"],
-			"id": "ImgurMenuItem"});		
-	}
-
 	if (transTextMenuEnabled)
 	{
 		chrome.contextMenus.create({"title": "Translate '%s' from " + transFromCode + " -> " + transToCode,
 			"contexts": ["selection"],
 			"id": "TranslateMenuItem"});
 	}
+	/*
+	if (twitVidDlEnabled)
+	{
+		chrome.contextMenus.create({"title": "Download Twitter Video",
+		"contexts": ["frame"],
+		"id": "TwitVidDlMenuItem",
+		"targetUrlPatterns": ["*://twitter.com/*"]});		
+	}*/
 }
 createContextMenus();
 
@@ -55,15 +55,14 @@ function onClickContextHandler(info)
 		case "SauceNAOMenuItem":
 			chrome.tabs.create({url: "http://saucenao.com/search.php?url=" + info.srcUrl});
 			break;
-		// If Upload to Imgur is clicked. Upload image link to Imgur.
-		case "ImgurMenuItem":
-			chrome.tabs.create({url: "http://imgur.com/upload?url=" + info.srcUrl});
-			break;
 		// If Translate is clicked. Enter selected text into Google Translate
 		case "TranslateMenuItem":
 			let newText = info.selectionText.replace("%", "%25");		
 			chrome.tabs.create({url: "http://translate.google.com/#" + transFromCode + "/" + transToCode + "/" + newText});
 			break;
+		/*case "TwitVidDlMenuItem":
+			chrome.tabs.create({url: "http://savedeo.com/download?url=" + info.pageUrl});
+			break;*/
 	}
 };
 
@@ -199,7 +198,6 @@ function loadSettings()
 		transFromLang: "ja",
 		transToLang: "en",
 		sauceNao: true,
-		upImgur: true,
 		transText: true,
 		twitReDir: true,
 		twitDl: true
@@ -207,7 +205,6 @@ function loadSettings()
 		transFromCode = items.transFromLang;
 		transToCode = items.transToLang;
 		sauceMenuEnabled = items.sauceNao;
-		imgurMenuEnabled = items.upImgur;
 		transTextMenuEnabled = items.transText;
 		origEnabled = items.twitReDir;
 		tfnEnabled = items.twitDl;
