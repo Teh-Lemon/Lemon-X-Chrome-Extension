@@ -32,14 +32,6 @@ function createContextMenus()
 			"contexts": ["selection"],
 			"id": "TranslateMenuItem"});
 	}
-	/*
-	if (twitVidDlEnabled)
-	{
-		chrome.contextMenus.create({"title": "Download Twitter Video",
-		"contexts": ["frame"],
-		"id": "TwitVidDlMenuItem",
-		"targetUrlPatterns": ["*://twitter.com/*"]});		
-	}*/
 }
 createContextMenus();
 
@@ -60,9 +52,6 @@ function onClickContextHandler(info)
 			let newText = info.selectionText.replace("%", "%25");		
 			chrome.tabs.create({url: "http://translate.google.com/#" + transFromCode + "/" + transToCode + "/" + newText});
 			break;
-		/*case "TwitVidDlMenuItem":
-			chrome.tabs.create({url: "http://savedeo.com/download?url=" + info.pageUrl});
-			break;*/
 	}
 };
 
@@ -82,7 +71,8 @@ function origHandler(info)
 {
 	let {url} = info;
 	
-	if (!origEnabled)
+	// ignore if not enabled in settings or image is in twitter's small format as these are embeded media
+	if (!origEnabled || url.includes("name=small"))
 	{
 		return   {	
 			redirectUrl: url
@@ -110,25 +100,6 @@ function origHandler(info)
 	};
 }
 
-///
-// Rename Twitter image filenames when downloading
-///
-/*
-chrome.downloads.onDeterminingFilename.addListener(twitFileNameHandler);
-
-function twitFileNameHandler(item, suggest) 
-{	
-	if (tfnEnabled)
-	{
-		const i = item.filename.lastIndexOf('-');
-
-		if (item.referrer.includes("twitter.com") || item.referrer.includes("pbs.twimg.com"))
-		{
-			const newName = item.filename.slice(0, i);		
-			suggest({filename: newName});
-		}	
-	}
-}*/
 chrome.webRequest.onHeadersReceived.addListener(twitFileNameHandler, {urls : ['*://pbs.twimg.com/media/*']}, ['blocking']);
 
 function twitFileNameHandler(details) 
@@ -159,35 +130,6 @@ function twitFileNameHandler(details)
 chrome.storage.onChanged.addListener(storChangedHandler);
 function storChangedHandler(changes, areaName)
 {
-	/*
-	if (typeof changes['transFromLang'] !== 'undefined')
-	{
-		transFromCode = changes['transFromLang'].newValue;
-	}
-	if (typeof changes['transToLang'] !== 'undefined')
-	{
-		transToCode	= changes['transToLang'].newValue;
-	}
-	if (typeof changes['sauceNao'] !== 'undefined')
-	{
-		sauceMenuEnabled = changes['sauceNao'].newValue;
-	}
-	if (typeof changes['upImgur'] !== 'undefined')
-	{
-		imgurMenuEnabled = changes['upImgur'].newValue;
-	}	
-	if (typeof changes['transText'] !== 'undefined')
-	{
-		transTextMenuEnabled = changes['transText'].newValue;
-	}
-	if (typeof changes['twitReDir'] !== 'undefined')
-	{
-		origEnabled	= changes['twitReDir'].newValue;
-	}
-	if (typeof changes['twitDl'] !== 'undefined')
-	{
-		tfnEnabled	= changes['twitDl'].newValue;
-	}*/
 	loadSettings();
 	chrome.contextMenus.removeAll(createContextMenus);
 }
