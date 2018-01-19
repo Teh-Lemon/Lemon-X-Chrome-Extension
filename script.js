@@ -72,7 +72,7 @@ function origHandler(info)
 	let {url} = info;
 	
 	// ignore if not enabled in settings or image is in twitter's small format as these are embeded media
-	if (!origEnabled || url.includes("name=small"))
+	if (!origEnabled || url.includes("&name="))
 	{
 		return   {	
 			redirectUrl: url
