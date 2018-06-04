@@ -9,14 +9,17 @@ Adds context menu for images
 - Reverse image search with SauceNAO
 
 Adds context menu for highlighted text
-- Translate selected text from Japanese to English with Google Translate
+- Translate selected text with Google Translate
+- Supports all the languages. Change in the options.
 
-Adds toolbar button
-- Quickly search MyAnimeList
+Adds toolbar button to quickly search MyAnimeList
  
 Redirects Twitter image URLs to the original size and quality version
 
 Download Twitter images as image files instead of Twitter's jpg-large files
+
+Chrome Cloud Sync for your settings across your devices
+- Requires you to have signed into your Google account in your browser settings
 
 To install
 ------------
