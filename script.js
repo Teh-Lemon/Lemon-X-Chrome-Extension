@@ -5,28 +5,21 @@
 // Redirect Twitter image URLs to original quality
 // Rename Twitter image filenames when downloading
 
-/*
-let sauceMenuEnabled = true;
-let transTextMenuEnabled = true;
-let origEnabled = true;
-let tfnEnabled = true;
-let transFromCode = 'ja';
-let transToCode = 'en';
-*/
-//loadSettings();
+/// OnLoad run script
+createContextMenus();
 
 ///
 // Set up context menus
 ///
 function createContextMenus()
 {
-	let sauceNaoEnabled;
-	let translateEnabled;
-	let translateFrom;
-	let translateTo;
+	var sauceNaoEnabled = false;
+	var translateEnabled = false;
+	var translateFrom = "";
+	var translateTo = "";
 
 	chrome.storage.sync.get({
-		transFromLang: "ja",
+		transFromLang: "auto",
 		transToLang: "en",
 		sauceNao: true,
 		transText: true
@@ -35,23 +28,26 @@ function createContextMenus()
 		translateTo = items.transToLang;
 		sauceNaoEnabled = items.sauceNao;
 		translateEnabled = items.transText;
+		
+		console.log("Creating context menus: Saucenao " + sauceNaoEnabled + ". Translate " + translateEnabled + ", " + translateFrom + ", " + translateTo + ".");
+		if (sauceNaoEnabled)
+		{
+			chrome.contextMenus.create({"title": "Search SauceNAO",
+			"contexts": ["image"],
+			"id": "SauceNAOMenuItem"});
+			console.log("SauceNao context menu created");
+		}
+	
+		if (translateEnabled)
+		{
+			chrome.contextMenus.create({"title": "Translate '%s' from " + translateFrom + " -> " + translateTo,
+				"contexts": ["selection"],
+				"id": "TranslateMenuItem"});
+	
+			console.log("Translate context menu created");
+		}
 	});
-
-	if (sauceNaoEnabled)
-	{
-		chrome.contextMenus.create({"title": "Search SauceNAO",
-		"contexts": ["image"],
-		"id": "SauceNAOMenuItem"});
-	}
-
-	if (translateEnabled)
-	{
-		chrome.contextMenus.create({"title": "Translate '%s' from " + translateFrom + " -> " + translateTo,
-			"contexts": ["selection"],
-			"id": "TranslateMenuItem"});
-	}
 }
-createContextMenus();
 
 // Add an event listener to the context menu item
 chrome.contextMenus.onClicked.addListener(onClickContextHandler);
@@ -67,19 +63,19 @@ function onClickContextHandler(info)
 			break;
 		// If Translate is clicked. Enter selected text into Google Translate
 		case "TranslateMenuItem":
-			let translateFrom;
-			let translateTo;
+			var translateFrom;
+			var translateTo;
 
 			chrome.storage.sync.get({
-				transFromLang: "ja",
+				transFromLang: "auto",
 				transToLang: "en"
 			}, function(items) {
 				translateFrom = items.transFromLang;
 				translateTo = items.transToLang;
-			});
 
-			let newText = info.selectionText.replace("%", "%25");		
-			chrome.tabs.create({url: "http://translate.google.com/#" + translateFrom + "/" + translateTo + "/" + newText});
+				let newText = info.selectionText.replace("%", "%25");		
+				chrome.tabs.create({url: "http://translate.google.com/#" + translateFrom + "/" + translateTo + "/" + newText});
+			});			
 			break;
 	}
 };
@@ -105,35 +101,35 @@ function origHandler(info)
 		twitReDir: true
 	}, function(items) {
 		useOrig = items.twitReDir;
-	});
-	
-	// ignore if not enabled in settings or image is in twitter's small format as these are embeded media
-	if (!useOrig || url.includes("&name="))
-	{
-		return   {	
-			redirectUrl: url
-		};
-	}
-  
-	// cull :large
-	const i = url.lastIndexOf(':');  
-	if (i > 5) 
-	{
-		if (/:orig$/.test(url) || /:thumb$/.test(url) && info.type === 'image') 
+
+		// ignore if not enabled in settings or image is in twitter's small format as these are embeded media
+		if (!useOrig || url.includes("&name="))
 		{
-			return;
+			return   {	
+				redirectUrl: url
+			};
+		}
+	
+		// cull :large
+		const i = url.lastIndexOf(':');  
+		if (i > 5) 
+		{
+			if (/:orig$/.test(url) || /:thumb$/.test(url) && info.type === 'image') 
+			{
+				return;
+			}
+
+			url = url.slice(0, i);
 		}
 
-		url = url.slice(0, i);
-	}
+		// cull http  
+		const j = url.indexOf(':');
+		url = url.slice(j)
 
-	// cull http  
-	const j = url.indexOf(':');
-	url = url.slice(j)
-
-	return   {	
-		redirectUrl: 'https' + url + ':orig'
-	};
+		return   {	
+			redirectUrl: 'https' + url + ':orig'
+		};
+	});
 }
 
 chrome.webRequest.onHeadersReceived.addListener(twitFileNameHandler, {urls : ['*://pbs.twimg.com/media/*']}, ['blocking']);
@@ -148,52 +144,31 @@ function twitFileNameHandler(details)
 		twitDl: true
 	}, function(items) {
 		twitDLEnabled = items.twitDl;
-	});
 
-	if (url.includes(":thumb") || url.includes(":large") || url.includes(":orig") || url.includes(":small") || url.includes(":medium"))
-	{
-		hasMediaTag = true;
-	}
-	
-	if (twitDLEnabled && hasMediaTag)
-	{
-	  return {
-		responseHeaders: [{
-		  name: 'Content-Disposition',
-		  value: `inline; filename="${url.slice(url.lastIndexOf('/') + 1, url.lastIndexOf(':'))}"`
-		}]
-	  };
-	}
+		if (url.includes(":thumb") || url.includes(":large") || url.includes(":orig") || url.includes(":small") || url.includes(":medium"))
+		{
+			hasMediaTag = true;
+		}
+		
+		if (twitDLEnabled && hasMediaTag)
+		{
+		  return {
+			responseHeaders: [{
+			  name: 'Content-Disposition',
+			  value: `inline; filename="${url.slice(url.lastIndexOf('/') + 1, url.lastIndexOf(':'))}"`
+			}]
+		  };
+		}
+	});
 }
 
 ///
-// Apply user options
+// Apply user options when changes are detected
 ///
-
 chrome.storage.onChanged.addListener(storeChangedHandler);
 function storeChangedHandler(changes, areaName)
 {
-	//loadSettings();
+	console.log("changed settings detected");
+	// Remove context menus and remake them with the new settings
 	chrome.contextMenus.removeAll(createContextMenus);
 }
-/*
-function loadSettings()
-{
-	chrome.storage.local.get({
-		transFromLang: "ja",
-		transToLang: "en",
-		sauceNao: true,
-		transText: true,
-		twitReDir: true,
-		twitDl: true
-	}, function(items) {
-		transFromCode = items.transFromLang;
-		transToCode = items.transToLang;
-		sauceMenuEnabled = items.sauceNao;
-		transTextMenuEnabled = items.transText;
-		origEnabled = items.twitReDir;
-		tfnEnabled = items.twitDl;
-	});
-	
-	console.log("settings loaded");
-}*/

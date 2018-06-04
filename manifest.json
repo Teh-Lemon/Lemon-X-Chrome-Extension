@@ -3,8 +3,8 @@
 
 	"name": "Lemon X",
 	"short_name": "Lemon X",
-	"description": "Lemon's extension",
-	"version": "1.4.8",
+	"description": "View/download Twitter images at original size. Search MyAnimeList. Reverse search images on SauceNao. Translate text with Google.",
+	"version": "1.5.0",
 
 	"permissions": 
 	[
@@ -32,7 +32,7 @@
 	"options_ui": 
 	{
 		"page": "options.html",
-		"chrome_style": true
+		"open_in_tab": false
     },
 
 	"browser_action": 
@@ -40,11 +40,5 @@
 		"default_icon": "images/icons/icon19.png",
 		"default_popup": "popup.html",
 		"default_title": "Lemon X"
-	},
-
-	"options_ui": 
-	{
-		"page": "options.html",
-		"open_in_tab": false
 	}
 }

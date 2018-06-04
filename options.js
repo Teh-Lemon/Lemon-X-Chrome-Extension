@@ -1,44 +1,16 @@
 console.log("options.js loading");
 
-// Saves options to chrome.storage.sync
-function SaveOptions() 
-{  
-	var transFromListValue = document.getElementById('transFromList').value;
-	var transToListValue = document.getElementById('transToList').value;
-	var sauceNaoCheckValue = document.getElementById('sauceNaoCheck').checked;
-	var transTextCheckValue = document.getElementById('transTextCheck').checked;
-	var twitReDirCheckValue = document.getElementById('twitURLCheck').checked;
-	var twitDlCheckValue = document.getElementById('twitDlCheck').checked;
-  
-	chrome.storage.sync.set({
-		transFromLang : transFromListValue,
-		transToLang : transToListValue,
-		sauceNao: sauceNaoCheckValue,
-		transText: transTextCheckValue,
-		twitReDir: twitReDirCheckValue,
-		twitDl: twitDlCheckValue
-	}, function() {
-		// Update status to let user know options were saved.
-		var status = document.getElementById('status');
-		status.textContent = 'Options saved.';
-		setTimeout(function() {
-			status.textContent = '';
-		}, 750);		
-	});
-
-	console.log("Options saved");
-}
-
-// Restores select box and checkbox state using the preferences
-// stored in chrome.storage.sync
-// Set up buttons
+// Wait for html to finish loading before initializing the script
 function DomLoaded() 
 {
+	// Set up buttons
 	document.getElementById('saveButt').addEventListener('click', SaveOptions);
 	document.getElementById('defaultButt').addEventListener('click', SetDefault);
 
+	// Restores select box and checkbox state using the preferences
+	// stored in chrome.storage.sync
 	chrome.storage.sync.get({
-		transFromLang: "ja",
+		transFromLang: "auto",
 		transToLang: "en",
 		sauceNao: true,
 		transText: true,
@@ -56,9 +28,38 @@ function DomLoaded()
 	console.log("options.js loaded");
 }
 
+// Saves options to chrome.storage.sync
+function SaveOptions() 
+{  
+	let transFromListValue = document.getElementById('transFromList').value;
+	let transToListValue = document.getElementById('transToList').value;
+	let sauceNaoCheckValue = document.getElementById('sauceNaoCheck').checked;
+	let transTextCheckValue = document.getElementById('transTextCheck').checked;
+	let twitReDirCheckValue = document.getElementById('twitURLCheck').checked;
+	let twitDlCheckValue = document.getElementById('twitDlCheck').checked;
+  
+	chrome.storage.sync.set({
+		transFromLang : transFromListValue,
+		transToLang : transToListValue,
+		sauceNao: sauceNaoCheckValue,
+		transText: transTextCheckValue,
+		twitReDir: twitReDirCheckValue,
+		twitDl: twitDlCheckValue
+	}, function() {
+		// Show "Saved" text briefly to let the user know the button has worked
+		let status = document.getElementById('status');
+		status.textContent = 'Options saved.';		
+		setTimeout(function() {
+			status.textContent = '';
+		}, 750);		
+	});
+
+	console.log("Options saved");
+}
+
 function SetDefault()
 {
-	document.getElementById('transFromList').value = "ja";
+	document.getElementById('transFromList').value = "auto";
 	document.getElementById('transToList').value = "en";
 	document.getElementById('sauceNaoCheck').checked = true;
 	document.getElementById('transTextCheck').checked = true;
@@ -66,6 +67,7 @@ function SetDefault()
 	document.getElementById('twitDlCheck').checked = true;
 
 	console.log("Options restored to defaults");
+	SaveOptions();
 }
 
 document.addEventListener('DOMContentLoaded', DomLoaded);
