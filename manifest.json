@@ -4,7 +4,7 @@
 	"name": "Lemon X",
 	"short_name": "Lemon X",
 	"description": "Lemon's extension",
-	"version": "1.4.7",
+	"version": "1.4.8",
 
 	"permissions": 
 	[
@@ -40,5 +40,11 @@
 		"default_icon": "images/icons/icon19.png",
 		"default_popup": "popup.html",
 		"default_title": "Lemon X"
+	},
+
+	"options_ui": 
+	{
+		"page": "options.html",
+		"open_in_tab": false
 	}
 }

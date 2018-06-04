@@ -5,30 +5,48 @@
 // Redirect Twitter image URLs to original quality
 // Rename Twitter image filenames when downloading
 
+/*
 let sauceMenuEnabled = true;
 let transTextMenuEnabled = true;
 let origEnabled = true;
 let tfnEnabled = true;
 let transFromCode = 'ja';
 let transToCode = 'en';
-
-loadSettings();
+*/
+//loadSettings();
 
 ///
 // Set up context menus
 ///
 function createContextMenus()
 {
-	if (sauceMenuEnabled)
+	let sauceNaoEnabled;
+	let translateEnabled;
+	let translateFrom;
+	let translateTo;
+
+	chrome.storage.sync.get({
+		transFromLang: "ja",
+		transToLang: "en",
+		sauceNao: true,
+		transText: true
+	}, function(items) {
+		translateFrom = items.transFromLang;
+		translateTo = items.transToLang;
+		sauceNaoEnabled = items.sauceNao;
+		translateEnabled = items.transText;
+	});
+
+	if (sauceNaoEnabled)
 	{
 		chrome.contextMenus.create({"title": "Search SauceNAO",
 		"contexts": ["image"],
 		"id": "SauceNAOMenuItem"});
 	}
 
-	if (transTextMenuEnabled)
+	if (translateEnabled)
 	{
-		chrome.contextMenus.create({"title": "Translate '%s' from " + transFromCode + " -> " + transToCode,
+		chrome.contextMenus.create({"title": "Translate '%s' from " + translateFrom + " -> " + translateTo,
 			"contexts": ["selection"],
 			"id": "TranslateMenuItem"});
 	}
@@ -49,8 +67,19 @@ function onClickContextHandler(info)
 			break;
 		// If Translate is clicked. Enter selected text into Google Translate
 		case "TranslateMenuItem":
+			let translateFrom;
+			let translateTo;
+
+			chrome.storage.sync.get({
+				transFromLang: "ja",
+				transToLang: "en"
+			}, function(items) {
+				translateFrom = items.transFromLang;
+				translateTo = items.transToLang;
+			});
+
 			let newText = info.selectionText.replace("%", "%25");		
-			chrome.tabs.create({url: "http://translate.google.com/#" + transFromCode + "/" + transToCode + "/" + newText});
+			chrome.tabs.create({url: "http://translate.google.com/#" + translateFrom + "/" + translateTo + "/" + newText});
 			break;
 	}
 };
@@ -70,9 +99,16 @@ chrome.webRequest.onBeforeRequest.addListener(origHandler, origFilter, ['blockin
 function origHandler(info) 
 {
 	let {url} = info;
+	let useOrig;
+
+	chrome.storage.sync.get({
+		twitReDir: true
+	}, function(items) {
+		useOrig = items.twitReDir;
+	});
 	
 	// ignore if not enabled in settings or image is in twitter's small format as these are embeded media
-	if (!origEnabled || url.includes("&name="))
+	if (!useOrig || url.includes("&name="))
 	{
 		return   {	
 			redirectUrl: url
@@ -106,13 +142,20 @@ function twitFileNameHandler(details)
 {
 	const {url} = details;
 	let hasMediaTag = false;
+	let twitDLEnabled = true;
+
+	chrome.storage.sync.get({
+		twitDl: true
+	}, function(items) {
+		twitDLEnabled = items.twitDl;
+	});
 
 	if (url.includes(":thumb") || url.includes(":large") || url.includes(":orig") || url.includes(":small") || url.includes(":medium"))
 	{
 		hasMediaTag = true;
 	}
 	
-	if (tfnEnabled && hasMediaTag)
+	if (twitDLEnabled && hasMediaTag)
 	{
 	  return {
 		responseHeaders: [{
@@ -127,13 +170,13 @@ function twitFileNameHandler(details)
 // Apply user options
 ///
 
-chrome.storage.onChanged.addListener(storChangedHandler);
-function storChangedHandler(changes, areaName)
+chrome.storage.onChanged.addListener(storeChangedHandler);
+function storeChangedHandler(changes, areaName)
 {
-	loadSettings();
+	//loadSettings();
 	chrome.contextMenus.removeAll(createContextMenus);
 }
-
+/*
 function loadSettings()
 {
 	chrome.storage.local.get({
@@ -153,4 +196,4 @@ function loadSettings()
 	});
 	
 	console.log("settings loaded");
-}
+}*/

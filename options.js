@@ -1,16 +1,16 @@
-console.log("options.js loaded")
+console.log("options.js loading");
 
-// Saves options to chrome.storage.local.
+// Saves options to chrome.storage.sync
 function SaveOptions() 
 {  
-	let transFromListValue = document.getElementById('transFromList').value;
-	let transToListValue = document.getElementById('transToList').value;
-	let sauceNaoCheckValue = document.getElementById('sauceNaoCheck').checked;
-	let transTextCheckValue = document.getElementById('transTextCheck').checked;
-	let twitReDirCheckValue = document.getElementById('twitURLCheck').checked;
-	let twitDlCheckValue = document.getElementById('twitDlCheck').checked;
+	var transFromListValue = document.getElementById('transFromList').value;
+	var transToListValue = document.getElementById('transToList').value;
+	var sauceNaoCheckValue = document.getElementById('sauceNaoCheck').checked;
+	var transTextCheckValue = document.getElementById('transTextCheck').checked;
+	var twitReDirCheckValue = document.getElementById('twitURLCheck').checked;
+	var twitDlCheckValue = document.getElementById('twitDlCheck').checked;
   
-	chrome.storage.local.set({
+	chrome.storage.sync.set({
 		transFromLang : transFromListValue,
 		transToLang : transToListValue,
 		sauceNao: sauceNaoCheckValue,
@@ -19,26 +19,28 @@ function SaveOptions()
 		twitDl: twitDlCheckValue
 	}, function() {
 		// Update status to let user know options were saved.
-		let status = document.getElementById('status');
+		var status = document.getElementById('status');
 		status.textContent = 'Options saved.';
 		setTimeout(function() {
 			status.textContent = '';
 		}, 750);		
 	});
+
+	console.log("Options saved");
 }
 
 // Restores select box and checkbox state using the preferences
-// stored in chrome.storage.
-function RestoreOptions() 
+// stored in chrome.storage.sync
+// Set up buttons
+function DomLoaded() 
 {
 	document.getElementById('saveButt').addEventListener('click', SaveOptions);
 	document.getElementById('defaultButt').addEventListener('click', SetDefault);
-	
-	chrome.storage.local.get({
+
+	chrome.storage.sync.get({
 		transFromLang: "ja",
 		transToLang: "en",
 		sauceNao: true,
-		upImgur: true,
 		transText: true,
 		twitReDir: true,
 		twitDl: true
@@ -50,6 +52,8 @@ function RestoreOptions()
 		document.getElementById('twitURLCheck').checked = items.twitReDir;
 		document.getElementById('twitDlCheck').checked = items.twitDl;
 	});
+	
+	console.log("options.js loaded");
 }
 
 function SetDefault()
@@ -60,6 +64,8 @@ function SetDefault()
 	document.getElementById('transTextCheck').checked = true;
 	document.getElementById('twitURLCheck').checked = true;
 	document.getElementById('twitDlCheck').checked = true;
+
+	console.log("Options restored to defaults");
 }
 
-document.addEventListener('DOMContentLoaded', RestoreOptions);
+document.addEventListener('DOMContentLoaded', DomLoaded);
