@@ -5,53 +5,69 @@
 // Redirect Twitter image URLs to original quality
 // Rename Twitter image filenames when downloading
 
+/// Loaded settings
+var m_translateFrom = "";
+var m_translateTo = "";
+var m_sauceMenuEnabled = false;
+var m_translateMenuEnabled = false;
+var m_twitterRedirectEnabled = false;
+var m_twitterDLEnabled = false;
+
 /// OnLoad run script
-createContextMenus();
+LoadSettings();
+
+///
+// Apply user options when changes are detected
+///
+chrome.storage.onChanged.addListener(LoadSettings);
+function LoadSettings(changes, areaName)
+{
+	console.log("changed settings detected");
+
+	chrome.storage.sync.get({
+		transFromLang: "auto",
+		transToLang: "en",
+		sauceNao: true,
+		transText: true,
+		twitReDir: true,
+		twitDl: true
+	}, function(items) {
+		m_translateFrom  = items.transFromLang;
+		m_translateTo = items.transToLang;
+		m_sauceMenuEnabled = items.sauceNao;
+		m_translateMenuEnabled = items.transText;
+		m_twitterRedirectEnabled = items.twitReDir;
+		m_twitterDLEnabled = items.twitDl;
+
+		// Remove context menus and remake them with the new settings
+		chrome.contextMenus.removeAll(createContextMenus);
+
+		console.log("New settings. from: " + m_translateFrom + ", to: " + m_translateTo + ". sauce: " + m_sauceMenuEnabled + ". translate: " + m_translateMenuEnabled + ". redir: " + m_twitterRedirectEnabled + ". dl: " + m_twitterDLEnabled);
+	});
+}
 
 ///
 // Set up context menus
 ///
 function createContextMenus()
 {
-	var sauceNaoEnabled = false;
-	var translateEnabled = false;
-	var translateFrom = "";
-	var translateTo = "";
+	if (m_sauceMenuEnabled)
+	{
+		chrome.contextMenus.create({"title": "Search SauceNAO",
+		"contexts": ["image"],
+		"id": "SauceNAOMenuItem"});
+	}
 
-	chrome.storage.sync.get({
-		transFromLang: "auto",
-		transToLang: "en",
-		sauceNao: true,
-		transText: true
-	}, function(items) {
-		translateFrom = items.transFromLang;
-		translateTo = items.transToLang;
-		sauceNaoEnabled = items.sauceNao;
-		translateEnabled = items.transText;
-		
-		console.log("Creating context menus: Saucenao " + sauceNaoEnabled + ". Translate " + translateEnabled + ", " + translateFrom + ", " + translateTo + ".");
-		if (sauceNaoEnabled)
-		{
-			chrome.contextMenus.create({"title": "Search SauceNAO",
-			"contexts": ["image"],
-			"id": "SauceNAOMenuItem"});
-			console.log("SauceNao context menu created");
-		}
-	
-		if (translateEnabled)
-		{
-			chrome.contextMenus.create({"title": "Translate '%s' from " + translateFrom + " -> " + translateTo,
-				"contexts": ["selection"],
-				"id": "TranslateMenuItem"});
-	
-			console.log("Translate context menu created");
-		}
-	});
+	if (m_translateMenuEnabled)
+	{
+		chrome.contextMenus.create({"title": "Translate '%s' from " + m_translateFrom + " -> " + m_translateTo,
+			"contexts": ["selection"],
+			"id": "TranslateMenuItem"});
+	}
 }
 
-// Add an event listener to the context menu item
+// Add an event listener to the context menu item for when the button is clicked
 chrome.contextMenus.onClicked.addListener(onClickContextHandler);
-
 // The onClicked callback function for context menu.
 function onClickContextHandler(info) 
 {	
@@ -63,20 +79,10 @@ function onClickContextHandler(info)
 			break;
 		// If Translate is clicked. Enter selected text into Google Translate
 		case "TranslateMenuItem":
-			var translateFrom;
-			var translateTo;
-
-			chrome.storage.sync.get({
-				transFromLang: "auto",
-				transToLang: "en"
-			}, function(items) {
-				translateFrom = items.transFromLang;
-				translateTo = items.transToLang;
-
-				let newText = info.selectionText.replace("%", "%25");		
-				chrome.tabs.create({url: "http://translate.google.com/#" + translateFrom + "/" + translateTo + "/" + newText});
-			});			
+			let newText = info.selectionText.replace("%", "%25");		
+			chrome.tabs.create({url: "http://translate.google.com/#" + m_translateFrom + "/" + m_translateTo + "/" + newText});
 			break;
+
 	}
 };
 
@@ -97,78 +103,59 @@ function origHandler(info)
 	let {url} = info;
 	let useOrig;
 
-	chrome.storage.sync.get({
-		twitReDir: true
-	}, function(items) {
-		useOrig = items.twitReDir;
-
-		// ignore if not enabled in settings or image is in twitter's small format as these are embeded media
-		if (!useOrig || url.includes("&name="))
-		{
-			return   {	
-				redirectUrl: url
-			};
-		}
-	
-		// cull :large
-		const i = url.lastIndexOf(':');  
-		if (i > 5) 
-		{
-			if (/:orig$/.test(url) || /:thumb$/.test(url) && info.type === 'image') 
-			{
-				return;
-			}
-
-			url = url.slice(0, i);
-		}
-
-		// cull http  
-		const j = url.indexOf(':');
-		url = url.slice(j)
-
+	// ignore if not enabled in settings or image is in twitter's small format as these are embeded media
+	if (!m_twitterRedirectEnabled || url.includes("&name="))
+	{
 		return   {	
-			redirectUrl: 'https' + url + ':orig'
+			redirectUrl: url
 		};
-	});
+	}
+
+	// cull :large
+	const i = url.lastIndexOf(':');  
+	if (i > 5) 
+	{
+		if (/:orig$/.test(url) || /:thumb$/.test(url) && info.type === 'image') 
+		{
+			return;
+		}
+
+		url = url.slice(0, i);
+	}
+
+	// cull http  
+	const j = url.indexOf(':');
+	url = url.slice(j)
+
+	console.log("culling tags");
+
+	return   {	
+		redirectUrl: 'https' + url + ':orig'
+	};
 }
 
 chrome.webRequest.onHeadersReceived.addListener(twitFileNameHandler, {urls : ['*://pbs.twimg.com/media/*']}, ['blocking']);
-
 function twitFileNameHandler(details) 
 {
 	const {url} = details;
 	let hasMediaTag = false;
-	let twitDLEnabled = true;
 
-	chrome.storage.sync.get({
-		twitDl: true
-	}, function(items) {
-		twitDLEnabled = items.twitDl;
+	if (url.includes(":thumb") || url.includes(":large") || url.includes(":orig") || url.includes(":small") || url.includes(":medium"))
+	{
+		hasMediaTag = true;
+	}
 
-		if (url.includes(":thumb") || url.includes(":large") || url.includes(":orig") || url.includes(":small") || url.includes(":medium"))
-		{
-			hasMediaTag = true;
-		}
-		
-		if (twitDLEnabled && hasMediaTag)
-		{
-		  return {
-			responseHeaders: [{
-			  name: 'Content-Disposition',
-			  value: `inline; filename="${url.slice(url.lastIndexOf('/') + 1, url.lastIndexOf(':'))}"`
-			}]
-		  };
-		}
-	});
+	if (m_twitterDLEnabled && hasMediaTag)
+	{
+		console.log("culling download");
+
+		return {
+		responseHeaders: [{
+			name: 'Content-Disposition',
+			value: `inline; filename="${url.slice(url.lastIndexOf('/') + 1, url.lastIndexOf(':'))}"`
+		}]
+		};
+	}
+
 }
 
-///
-// Apply user options when changes are detected
-///
-chrome.storage.onChanged.addListener(storeChangedHandler);
-function storeChangedHandler(changes, areaName)
-{
-	console.log("changed settings detected");
-	// Remove context menus and remake them with the new settings
-	chrome.contextMenus.removeAll(createContextMenus);
-}
