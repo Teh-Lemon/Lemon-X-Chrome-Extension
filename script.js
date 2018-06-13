@@ -125,9 +125,7 @@ function origHandler(info)
 
 	// cull http  
 	const j = url.indexOf(':');
-	url = url.slice(j)
-
-	console.log("culling tags");
+	url = url.slice(j);
 
 	return   {	
 		redirectUrl: 'https' + url + ':orig'
@@ -147,8 +145,6 @@ function twitFileNameHandler(details)
 
 	if (m_twitterDLEnabled && hasMediaTag)
 	{
-		console.log("culling download");
-
 		return {
 		responseHeaders: [{
 			name: 'Content-Disposition',
