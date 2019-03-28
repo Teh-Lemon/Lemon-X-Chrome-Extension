@@ -101,7 +101,6 @@ chrome.webRequest.onBeforeRequest.addListener(origHandler, origFilter, ['blockin
 function origHandler(info) 
 {
 	let {url} = info;
-	let useOrig;
 
 	// ignore if not enabled in settings or image is in twitter's small format as these are embeded media
 	if (!m_twitterRedirectEnabled || url.includes("&name="))
