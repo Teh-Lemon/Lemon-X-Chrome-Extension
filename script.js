@@ -103,31 +103,43 @@ function origHandler(info)
 	let {url} = info;
 
 	// ignore if not enabled in settings or image is in twitter's small format as these are embeded media
-	if (!m_twitterRedirectEnabled || url.includes("&name="))
+	if (!m_twitterRedirectEnabled || url.includes("&name=small"))
 	{
 		return   {	
 			redirectUrl: url
 		};
 	}
 
-	// cull :large
-	const i = url.lastIndexOf(':');  
-	if (i > 5) 
-	{
-		if (/:orig$/.test(url) || /:thumb$/.test(url) && info.type === 'image') 
-		{
-			return;
-		}
-
-		url = url.slice(0, i);
-	}
-
-	// cull http  
+	// cull http to later replace with https
 	const j = url.indexOf(':');
 	url = url.slice(j);
 
+	// cull 2019 twitter image format urls
+	if (url.includes("&name"))
+	{
+		url = url.replace("&name=large", "&name=orig");
+		url = url.replace("&name=900x900", "&name=orig");
+		url = url.replace("&name=medium", "&name=orig");
+	}
+	// cull :large
+	else
+	{		
+		const i = url.lastIndexOf(':');  
+		if (i > 5) 
+		{
+			if (/:orig$/.test(url) || /:thumb$/.test(url) && info.type === 'image') 
+			{
+				return;
+			}
+
+			url = url.slice(0, i);		
+		}
+
+		url = url + ":orig";
+	}
+
 	return   {	
-		redirectUrl: 'https' + url + ':orig'
+		redirectUrl: 'https' + url
 	};
 }
 
