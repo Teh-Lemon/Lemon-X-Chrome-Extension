@@ -102,8 +102,8 @@ function origHandler(info)
 {
 	let {url} = info;
 
-	// ignore if not enabled in settings or image is in twitter's small format as these are embeded media
-	if (!m_twitterRedirectEnabled || url.includes("&name=small"))
+	// ignore if not enabled in settings //or image is in twitter's small format as these are embeded media
+	if (!m_twitterRedirectEnabled)
 	{
 		return   {	
 			redirectUrl: url
@@ -120,6 +120,8 @@ function origHandler(info)
 		url = url.replace("&name=large", "&name=orig");
 		url = url.replace("&name=900x900", "&name=orig");
 		url = url.replace("&name=medium", "&name=orig");
+		url = url.replace("&name=small", "&name=orig");
+		url = url.replace("&name=4096x4096", "&name=orig");
 	}
 	// cull :large
 	else
