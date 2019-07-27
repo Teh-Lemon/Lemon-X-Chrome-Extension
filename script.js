@@ -122,6 +122,7 @@ function origHandler(info)
 		url = url.replace("&name=medium", "&name=orig");
 		url = url.replace("&name=small", "&name=orig");
 		url = url.replace("&name=4096x4096", "&name=orig");
+		url = url.replace("&name=360x360", "&name=orig");
 	}
 	// cull :large
 	else
