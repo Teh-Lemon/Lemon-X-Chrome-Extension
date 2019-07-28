@@ -117,12 +117,14 @@ function origHandler(info)
 	// cull 2019 twitter image format urls
 	if (url.includes("&name"))
 	{
-		url = url.replace("&name=large", "&name=orig");
-		url = url.replace("&name=900x900", "&name=orig");
-		url = url.replace("&name=medium", "&name=orig");
 		url = url.replace("&name=small", "&name=orig");
+		url = url.replace("&name=medium", "&name=orig");
+		url = url.replace("&name=large", "&name=orig");
 		url = url.replace("&name=4096x4096", "&name=orig");
+		url = url.replace("&name=900x900", "&name=orig");
 		url = url.replace("&name=360x360", "&name=orig");
+		url = url.replace("&name=240x240", "&name=orig");
+		url = url.replace("&name=120x120", "&name=orig");
 	}
 	// cull :large
 	else
