@@ -46,10 +46,16 @@ To update:
 1. Overwrite the files of the extension with the new files  
 2. If the directory is not changed, Chrome will automatically detect and install the update
 
+## Additional Instructions
+
+[Disable Re-directing Twitter Timeline Thumbnails To Original Sizes](Doc/Disable_Twitter_Thumbnail_Redirects.md)
+
 ## Permissions
 
 Read and change your data on pbs.twimg.com
 - Used to redirect Twitter images to the original size  
+Read and change your data on twitter.com and mobile.twitter.com  
+- Used to redirect Twitter timeline thumbnail images to the original size  
 
 ## Screenshots
 
