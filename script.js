@@ -102,7 +102,7 @@ function origHandler(info)
 {
 	let {url} = info;
 
-	// ignore if not enabled in settings //or image is in twitter's small format as these are embeded media
+	// ignore if not enabled in settings
 	if (!m_twitterRedirectEnabled)
 	{
 		return   {	

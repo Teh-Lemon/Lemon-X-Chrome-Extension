@@ -15,7 +15,7 @@ Adds context menu for highlighted text
 - Supports all the languages. Change in the options.
 
 Adds toolbar button to quickly search MyAnimeList
- 
+
 Redirects Twitter image URLs to the original size and quality version
 
 Download Twitter images as image files instead of Twitter's jpg-large files
@@ -41,7 +41,7 @@ Chrome will automatically update it for you.
 6. Point it to the files you just extracted
 7. Disable Developer Mode.
 
-To update:   
+To update:  
 
 1. Overwrite the files of the extension with the new files  
 2. If the directory is not changed, Chrome will automatically detect and install the update

@@ -4,7 +4,7 @@
 	"name": "Lemon X",
 	"short_name": "Lemon X",
 	"description": "View/download Twitter images at original size. Search MyAnimeList. Reverse search images on SauceNao. Translate text with Google.",
-	"version": "1.6.3",
+	"version": "1.7.0",
 
 	"permissions": 
 	[
@@ -12,6 +12,8 @@
 		"webRequest",
 		"webRequestBlocking",
 		"*://pbs.twimg.com/media/",
+		"*://twitter.com/",
+		"*://mobile.twitter.com/",
 		"contextMenus",
 		"storage"
 	],
